@@ -44,9 +44,10 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
     const { userId } = data;
 
     const kindeAPI = await createKindeAPI(event);
-    await kindeAPI.put({
+    const putResult = await kindeAPI.put({
       endpoint: `users/${event.context.user.id}/properties/incognifi-user-id?value=${userId}`,
     });
+    console.log("Put Result", putResult);
   } catch (error) {
     console.error(
       "Error",
