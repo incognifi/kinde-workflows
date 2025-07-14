@@ -48,6 +48,7 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
     const accessToken = accessTokenCustomClaims<{ user_id: string }>();
     accessToken.user_id = userId;
   } catch (error) {
+    console.log("WHAT THE ACTUAL FUCK?", error);
     console.error("Error", JSON.stringify(error));
   }
 }
