@@ -19,6 +19,7 @@ export const workflowSettings: WorkflowSettings = {
     "kinde.secureFetch": {},
     "kinde.accessToken": {},
     "kinde.env": {},
+    url: {},
   },
 };
 
@@ -26,12 +27,9 @@ export const workflowSettings: WorkflowSettings = {
 export default async function Workflow(event: onPostAuthenticationEvent) {
   try {
     const ORCHESTRATOR_URL = getEnvironmentVariable("ORCHESTRATOR_URL")?.value;
-    console.log("Orchestrator Url", ORCHESTRATOR_URL);
     if (!ORCHESTRATOR_URL) {
       throw Error("Orchestrator Endpoint not set");
     }
-
-    console.log("Client Id", event.context.application.clientId);
 
     const { userId } = await secureFetch<{ userId: string }>(
       `${ORCHESTRATOR_URL}/api/users?authId=${event.context.user.id}`,
