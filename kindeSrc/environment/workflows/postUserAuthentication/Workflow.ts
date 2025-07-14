@@ -2,7 +2,7 @@ import {
   onPostAuthenticationEvent,
   WorkflowSettings,
   WorkflowTrigger,
-  secureFetch,
+  fetch,
   getEnvironmentVariable,
   accessTokenCustomClaims,
 } from "@kinde/infrastructure";
@@ -16,7 +16,7 @@ export const workflowSettings: WorkflowSettings = {
   },
   bindings: {
     "kinde.mfa": {},
-    "kinde.secureFetch": {},
+    "kinde.fetch": {},
     "kinde.accessToken": {},
     "kinde.env": {},
     url: {},
@@ -31,7 +31,7 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
       throw Error("Orchestrator Endpoint not set");
     }
 
-    const { userId } = await secureFetch<{ userId: string }>(
+    const { data } = await fetch<{ data: { userId: string } }>(
       `${ORCHESTRATOR_URL}/api/users?authId=${event.context.user.id}`,
       {
         method: "GET",
@@ -41,6 +41,10 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
         },
       }
     );
+
+    console.log("Data", data);
+
+    const { userId } = data;
 
     console.log("User Id", userId);
 
