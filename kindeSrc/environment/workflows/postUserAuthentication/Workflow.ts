@@ -29,6 +29,8 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
       throw Error("Orchestrator Endpoint not set");
     }
 
+    console.log("Client Id", event.context.application.clientId);
+
     const { userId } = await secureFetch<{ userId: string }>(
       `${ORCHESTRATOR_URL}/api/users?authId=${event.context.user.id}`,
       {
@@ -40,9 +42,11 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
       }
     );
 
+    console.log("User Id", userId);
+
     const accessToken = accessTokenCustomClaims<{ user_id: string }>();
     accessToken.user_id = userId;
   } catch (error) {
-    console.error("Error", error);
+    console.error("Error", JSON.stringify(error));
   }
 }
