@@ -4,7 +4,7 @@ import {
   WorkflowTrigger,
   fetch,
   getEnvironmentVariable,
-  accessTokenCustomClaims,
+  createKindeAPI,
 } from "@kinde/infrastructure";
 
 // The setting for this workflow
@@ -17,7 +17,6 @@ export const workflowSettings: WorkflowSettings = {
   bindings: {
     "kinde.mfa": {},
     "kinde.fetch": {},
-    "kinde.accessToken": {},
     "kinde.env": {},
     url: {},
   },
@@ -42,14 +41,12 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
       }
     );
 
-    console.log("Data", data);
-
     const { userId } = data;
 
-    console.log("User Id", userId);
-
-    const accessToken = accessTokenCustomClaims<{ user_id: string }>();
-    accessToken.user_id = userId;
+    const kindeAPI = await createKindeAPI(event);
+    await kindeAPI.put({
+      endpoint: `users/${event.context.user.id}/properties/incognifi-user-id?value=${userId}`,
+    });
   } catch (error) {
     console.error(
       "Error",
