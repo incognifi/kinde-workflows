@@ -27,7 +27,7 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
   const kindeAPI = await createKindeAPI(event);
 
   const { data: user } = await kindeAPI.get({
-    endpoint: `user?id=${event.context.user.id}`,
+    endpoint: `users/${event.context.user.id}/properties`,
   });
   console.log("USER", user);
   try {
