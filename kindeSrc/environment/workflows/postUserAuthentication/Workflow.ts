@@ -24,6 +24,12 @@ export const workflowSettings: WorkflowSettings = {
 
 // The workflow code to be executed when the event is triggered
 export default async function Workflow(event: onPostAuthenticationEvent) {
+  const kindeAPI = await createKindeAPI(event);
+
+  const { data: user } = await kindeAPI.get({
+    endpoint: `user?id=${event.context.user.id}`,
+  });
+  console.log("USER", user);
   try {
     const ORCHESTRATOR_URL = getEnvironmentVariable("ORCHESTRATOR_URL")?.value;
     if (!ORCHESTRATOR_URL) {
@@ -43,7 +49,6 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
 
     const { userId } = data;
 
-    const kindeAPI = await createKindeAPI(event);
     const putResult = await kindeAPI.put({
       endpoint: `users/${event.context.user.id}/properties/incognifi-user-id?value=${userId}`,
     });
