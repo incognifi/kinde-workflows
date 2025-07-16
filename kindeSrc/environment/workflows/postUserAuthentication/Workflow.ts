@@ -10,6 +10,7 @@ import {
 // The setting for this workflow
 export const workflowSettings: WorkflowSettings = {
   id: "onPostUserAuthentication",
+  name: "Assign Incognifi User Id",
   trigger: WorkflowTrigger.PostAuthentication,
   failurePolicy: {
     action: "stop",
