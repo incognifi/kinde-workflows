@@ -23,6 +23,14 @@ export const workflowSettings: WorkflowSettings = {
   },
 };
 
+type property = {
+  id: string;
+  key: string;
+  name: string;
+  value: string | null;
+  description: string | null;
+};
+
 // The workflow code to be executed when the event is triggered
 export default async function Workflow(event: onPostAuthenticationEvent) {
   const kindeAPI = await createKindeAPI(event);
@@ -30,7 +38,16 @@ export default async function Workflow(event: onPostAuthenticationEvent) {
   const { data: user } = await kindeAPI.get({
     endpoint: `users/${event.context.user.id}/properties`,
   });
-  console.log("USER", user);
+
+  const properties: property[] = user.properties;
+  const incognifiUserIdProperty = properties.find(
+    (property) => property.key === "incognifi-user-id"
+  );
+  if (incognifiUserIdProperty && incognifiUserIdProperty.value) {
+    console.log("User Id property already set", incognifiUserIdProperty.value);
+    return;
+  }
+
   try {
     const ORCHESTRATOR_URL = getEnvironmentVariable("ORCHESTRATOR_URL")?.value;
     if (!ORCHESTRATOR_URL) {
