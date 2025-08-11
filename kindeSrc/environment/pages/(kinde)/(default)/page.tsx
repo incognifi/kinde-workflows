@@ -10,9 +10,10 @@ import { Root } from "../../../../root";
 const DefaultPage: React.FC<KindePageEvent> = ({ context, request }) => {
   return (
     <Root context={context} request={request}>
-      <DefaultLayout>
+      <div>Test Content</div>
+      {/* <DefaultLayout>
         <Widget heading="Login to Incognifi" />
-      </DefaultLayout>
+      </DefaultLayout> */}
     </Root>
   );
 };
