@@ -14,10 +14,14 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7",
     "eslint": "^9.25.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@kinde/infrastructure": "0.6.0"
+    "@kinde/infrastructure": "0.6.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   }
 }
