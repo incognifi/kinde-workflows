@@ -22,11 +22,6 @@ const DefaultPage: React.FC<KindePageEvent> = async ({ context, request }) => {
         <meta content={getKindeCSRF()} name="csrf-token" />
         <meta content="light" name="color-scheme" />
         <meta content="nopagereadaloud" name="google" />
-        <meta content="Login to your Incognifi account" name="description" />
-
-        <title>Login - Incognifi</title>
-
-        <link href={getSVGFaviconUrl()} rel="icon" type="image/svg+xml" />
         {getKindeRequiredCSS()}
         {getKindeRequiredJS()}
       </head>
