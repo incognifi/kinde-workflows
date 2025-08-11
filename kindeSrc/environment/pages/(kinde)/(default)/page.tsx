@@ -11,7 +11,7 @@ import {
   type KindePageEvent,
 } from "@kinde/infrastructure";
 
-const DefaultPage: React.FC<KindePageEvent> = ({ context, request }) => {
+const DefaultPage: React.FC<KindePageEvent> = async ({ context, request }) => {
   return (
     <html dir={request.locale.isRtl ? "rtl" : "ltr"} lang={request.locale.lang}>
       <head>
