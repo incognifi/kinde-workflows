@@ -30,14 +30,13 @@ export const Root = ({
         <meta content="nopagereadaloud" name="google" />
         <meta content="Login to your Incognifi account" name="description" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
-          href="https://fonts.gstatic.com"
+          href="https://new.incognifi.com"
           crossOrigin=""
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+          href="https://new.incognifi.com/fonts/Outfit-VariableFont_wght.ttf"
           rel="stylesheet"
         />
 
