@@ -33,6 +33,10 @@ export const getStyles = (): string => `
         box-sizing: border-box;
     }
 
+    * {
+        box-sizing: border-box;
+    }
+
     [data-kinde-control-label] {
         font-weight: 700;
     }
@@ -43,6 +47,13 @@ export const getStyles = (): string => `
 
     [data-kinde-button-variant=primary] { 
         background: linear-gradient(90deg, #467BE6 30.32%, #212581 100%);
+    }
+
+    body {
+        margin: 0;
+        font-family: ${kindeVariables.baseFontFamily};
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
     }
 
     .auth-container {
