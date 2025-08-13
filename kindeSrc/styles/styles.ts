@@ -46,7 +46,8 @@ export const getStyles = (): string => `
     }
 
     [data-kinde-button-variant=primary] { 
-        background: linear-gradient(90deg, #467BE6 30.32%, #212581 100%);
+        opacity: 0.6;
+        background-color: ${kindeVariables.buttonPrimaryBackgroundColor};        
     }
 
     body {
@@ -54,6 +55,24 @@ export const getStyles = (): string => `
         font-family: ${kindeVariables.baseFontFamily};
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
+    }
+
+    button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 1.0625rem;
+        font-family: ${kindeVariables.baseFontFamily};
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        margin-bottom: 0.75rem;
+        gap: 0.5rem;
     }
 
     .auth-container {
