@@ -52,6 +52,10 @@ export const getStyles = (): string => `
         color: ${kindeVariables.buttonPrimaryBackgroundColor};
     }
 
+    html {
+        font-size: 16px;
+    }
+
     body {
         margin: 0;
         font-family: ${kindeVariables.baseFontFamily};
