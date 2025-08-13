@@ -14,7 +14,10 @@ const kindeVariables = {
 } as const;
 
 export const getStyles = (): string => `
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+    @font-face {
+        font-family: Outfit;
+        src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+    }
 
     :root {
         --kinde-base-font-family: ${kindeVariables.baseFontFamily};
