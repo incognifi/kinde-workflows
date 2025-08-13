@@ -14,11 +14,6 @@ const kindeVariables = {
 } as const;
 
 export const getStyles = (): string => `
-    @font-face {
-        font-family: Outfit;
-        src: url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-    }
-
     :root {
         --kinde-base-font-family: ${kindeVariables.baseFontFamily};
         --kinde-control-select-text-border-radius: ${kindeVariables.controlSelectTextBorderRadius};
