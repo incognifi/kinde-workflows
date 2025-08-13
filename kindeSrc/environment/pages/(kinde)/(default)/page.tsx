@@ -7,7 +7,7 @@ import { DefaultLayout } from "../../../../layouts/default";
 import { Widget } from "../../../../components/widget";
 import { Root } from "../../../../root";
 
-const DefaultPage: React.FC<KindePageEvent> = async ({ context, request }) => {
+const DefaultPage: React.FC<KindePageEvent> = ({ context, request }) => {
   return (
     <Root context={context} request={request}>
       <DefaultLayout>
