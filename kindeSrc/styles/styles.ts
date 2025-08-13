@@ -3,6 +3,7 @@ const kindeVariables = {
     "Outfit, -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;",
   controlSelectTextBorderRadius: "1rem",
   buttonPrimaryBackgroundColor: "#4f46e5",
+  buttonPrimaryBackgroundColorHover: "#4338ca",
   buttonPrimaryColor: "white",
   buttonBorderRadius: "8px",
   buttonSecondaryBackgroundColor: "#f8fafc",
@@ -24,7 +25,7 @@ export const getStyles = (): string => `
         --kinde-button-secondary-border-width: ${kindeVariables.buttonSecondaryBorderWidth};
         --kinde-button-secondary-border-style: ${kindeVariables.buttonSecondaryBorderStyle};
         --kinde-button-secondary-border-radius: ${kindeVariables.buttonSecondaryBorderRadius};
-        --kinde-control-label-color: #fff;
+        --kinde-control-label-color: #000;
         --kinde-button-font-weight: 700;
         --kinde-control-select-text-border-color: #636363;
         --kinde-button-primary-border-width: 0;
@@ -46,8 +47,11 @@ export const getStyles = (): string => `
     }
 
     [data-kinde-button-variant=primary] { 
-        opacity: 0.6;
         background-color: ${kindeVariables.buttonPrimaryBackgroundColor};        
+    }
+
+    [data-kinde-button-variant=primary]:hover {
+        background-color: ${kindeVariables.buttonPrimaryBackgroundColorHover};
     }
 
     body {
