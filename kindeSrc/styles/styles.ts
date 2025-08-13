@@ -1,7 +1,10 @@
 const kindeVariables = {
   baseFontFamily:
     "Outfit, -apple-system, system-ui, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;",
-  controlSelectTextBorderRadius: "1rem",
+  controlSelectTextBorderRadius: "6px",
+  controlSelectTextBorderColor: "#e2e8f0",
+  controlSelectTextBorderColorFocus: "#4f46e5",
+  controlLabelColor: "#1e293b",
   buttonPrimaryBackgroundColor: "#4f46e5",
   buttonPrimaryBackgroundColorHover: "#4338ca",
   buttonPrimaryColor: "white",
@@ -11,12 +14,16 @@ const kindeVariables = {
   buttonSecondaryBorderColor: "#e2e8f0",
   buttonSecondaryBorderStyle: "solid",
   buttonSecondaryBorderRadius: "8px",
+  textSecondaryColor: "#64748b",
 } as const;
 
 export const getStyles = (): string => `
     :root {
         --kinde-base-font-family: ${kindeVariables.baseFontFamily};
         --kinde-control-select-text-border-radius: ${kindeVariables.controlSelectTextBorderRadius};
+        --kinde-control-select-text-border-color: ${kindeVariables.controlSelectTextBorderColor};
+        --kinde-control-select-text-border-color-focus: ${kindeVariables.controlSelectTextBorderColorFocus};
+        --kinde-control-label-color: ${kindeVariables.controlLabelColor};
         --kinde-button-primary-background-color: ${kindeVariables.buttonPrimaryBackgroundColor};
         --kinde-button-primary-color: ${kindeVariables.buttonPrimaryColor};
         --kinde-button-border-radius: ${kindeVariables.buttonBorderRadius};
@@ -37,7 +44,7 @@ export const getStyles = (): string => `
     }
 
     [data-kinde-control-label] {
-        font-weight: 700;
+        font-weight: 500;
     }
 
     [data-kinde-button-variant=primary] { 
@@ -52,8 +59,8 @@ export const getStyles = (): string => `
         color: ${kindeVariables.buttonPrimaryBackgroundColor};
     }
 
-    html {
-        font-size: 16px;
+    [data-kinde-fallback-action-helper-text] {
+        color: ${kindeVariables.textSecondaryColor};
     }
 
     body {
