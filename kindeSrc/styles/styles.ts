@@ -51,7 +51,7 @@ export const getStyles = (): string => `
     }
 
     [data-kinde-text-button] {
-        color: 000;
+        color: ${kindeVariables.buttonPrimaryBackgroundColor};
     }
 
     body {
