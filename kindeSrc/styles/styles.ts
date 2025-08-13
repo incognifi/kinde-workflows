@@ -29,7 +29,7 @@ export const getStyles = (): string => `
         --kinde-button-font-weight: 700;
         --kinde-control-select-text-border-color: #636363;
         --kinde-button-primary-border-width: 0;
-        --kinde-designer-base-link-color: #fff;
+        --kinde-designer-base-link-color: #000;
 
         box-sizing: border-box;
     }
@@ -42,16 +42,16 @@ export const getStyles = (): string => `
         font-weight: 700;
     }
 
-    [data-kinde-choice-separator] { 
-        color: #ABABAB;
-    }
-
     [data-kinde-button-variant=primary] { 
         background-color: ${kindeVariables.buttonPrimaryBackgroundColor};        
     }
 
     [data-kinde-button-variant=primary]:hover {
         background-color: ${kindeVariables.buttonPrimaryBackgroundColorHover};
+    }
+
+    [data-kinde-text-button] {
+        color: 000;
     }
 
     body {
