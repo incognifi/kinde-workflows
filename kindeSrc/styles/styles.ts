@@ -103,7 +103,6 @@ export const getStyles = (): string => `
 
     .auth-layout {
         display: flex;
-        min-height: 100vh;
         align-items: center;
         justify-content: center;
         gap: 4rem;
