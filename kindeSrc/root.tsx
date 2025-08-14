@@ -32,11 +32,11 @@ export const Root = ({
 
         <link
           rel="preconnect"
-          href="https://new.incognifi.com"
+          href="https://fonts.incognifi.com"
           crossOrigin=""
         />
         <link
-          href="https://new.incognifi.com/fonts/Outfit-VariableFont_wght.ttf"
+          href="https://fonts.incognifi.com/Outfit-VariableFont_wght.ttf"
           rel="stylesheet"
         />
 
