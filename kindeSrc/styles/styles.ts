@@ -18,6 +18,11 @@ const kindeVariables = {
 } as const;
 
 export const getStyles = (): string => `
+    @font-face {
+        font-family: Outfit;
+        src: url(https://fonts.incognifi.com/Outfit-VariableFont_wght.ttf);
+    }
+
     :root {
         --kinde-base-font-family: ${kindeVariables.baseFontFamily};
         --kinde-control-select-text-border-radius: ${kindeVariables.controlSelectTextBorderRadius};
