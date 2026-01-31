@@ -2,15 +2,25 @@ import {
   onPostAuthenticationEvent,
   WorkflowSettings,
   WorkflowTrigger,
-  fetch,
   getEnvironmentVariable,
   createKindeAPI,
 } from "@kinde/infrastructure";
 
+declare const kinde: {
+  fetch: (
+    url: string,
+    options: {
+      method: string;
+      headers?: Record<string, string>;
+      body?: string;
+    },
+  ) => Promise<Response>;
+};
+
 // The setting for this workflow
 export const workflowSettings: WorkflowSettings = {
-  id: "onPostUserAuthentication",
-  name: "Assign Incognifi User Id",
+  id: "incognifi-user-sync",
+  name: "Sync User To Incognifi",
   trigger: WorkflowTrigger.PostAuthentication,
   failurePolicy: {
     action: "stop",
@@ -19,62 +29,50 @@ export const workflowSettings: WorkflowSettings = {
     "kinde.mfa": {},
     "kinde.fetch": {},
     "kinde.env": {},
-    url: {},
   },
-};
-
-type property = {
-  id: string;
-  key: string;
-  name: string;
-  value: string | null;
-  description: string | null;
 };
 
 // The workflow code to be executed when the event is triggered
 export default async function Workflow(event: onPostAuthenticationEvent) {
-  const kindeAPI = await createKindeAPI(event);
-
-  const { data: user } = await kindeAPI.get({
-    endpoint: `users/${event.context.user.id}/properties`,
-  });
-
-  const properties: property[] = user.properties;
-  const incognifiUserIdProperty = properties.find(
-    (property) => property.key === "incognifi-user-id"
-  );
-  if (incognifiUserIdProperty && incognifiUserIdProperty.value) {
-    console.log("User Id property already set", incognifiUserIdProperty.value);
+  if (!event.context.auth.isNewUserRecordCreated) {
     return;
   }
 
-  try {
-    const ORCHESTRATOR_URL = getEnvironmentVariable("ORCHESTRATOR_URL")?.value;
-    if (!ORCHESTRATOR_URL) {
-      throw Error("Orchestrator Endpoint not set");
-    }
+  const kindeId = event.context.user.id;
 
-    const { data } = await fetch<{ data: { userId: string } }>(
-      `${ORCHESTRATOR_URL}/api/users?authId=${event.context.user.id}`,
-      {
-        method: "GET",
-        responseFormat: "json",
-        headers: {
-          "X-Client-App": `kinde-auth-${event.context.application.clientId}`,
+  const kindeAPI = await createKindeAPI(event);
+  const { data: user } = await kindeAPI.get({
+    endpoint: `users/${kindeId}`,
+  });
+
+  const webhookSecret = getEnvironmentVariable(
+    "INCOGNIFI_WEBHOOK_SECRET",
+  )?.value;
+
+  const response = await kinde.fetch(
+    `https://incognifi-api.max-514.workers.dev/webhooks/kinde/user-authenticated`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${webhookSecret}`,
+      },
+      body: JSON.stringify({
+        event: {
+          context: {
+            user: {
+              id: user.id,
+              email: user.preferred_email,
+              given_name: user.first_name,
+              family_name: user.family_name,
+            },
+          },
         },
-      }
-    );
+      }),
+    },
+  );
 
-    const { userId } = data;
-
-    const putResult = await kindeAPI.put({
-      endpoint: `users/${event.context.user.id}/properties/incognifi-user-id?value=${userId}`,
-    });
-    console.log("Put Result", putResult);
-  } catch (error) {
-    console.error(
-      "Error",
-      JSON.stringify(error, Object.getOwnPropertyNames(error))
-    );
+  if (!response.ok) {
+    throw new Error(`Incognifi webhook failed: ${response.status}`);
   }
 }
